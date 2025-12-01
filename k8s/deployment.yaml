@@ -19,7 +19,7 @@ spec:
           image: university/gate-entry:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 9090
           env:
             - name: JAVA_OPTS
               value: "-Xms256m -Xmx512m"

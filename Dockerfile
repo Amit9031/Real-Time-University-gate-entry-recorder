@@ -1,17 +1,19 @@
-FROM eclipse-temurin:17-jdk-jammy as build
+FROM maven:3.9-eclipse-temurin-17 AS build
 
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN ./mvnw -q -DskipTests package || mvn -q -DskipTests package
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 COPY --from=build /app/target/gate-entry-1.0.0.jar app.jar
 
-EXPOSE 8080
+EXPOSE 9090
+
+ENV SERVER_PORT=9090
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
