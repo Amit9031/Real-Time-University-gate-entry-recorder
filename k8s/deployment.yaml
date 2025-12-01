@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gate-entry-deployment
+  labels:
+    app: gate-entry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gate-entry
+  template:
+    metadata:
+      labels:
+        app: gate-entry
+    spec:
+      containers:
+        - name: gate-entry
+          image: university/gate-entry:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-Xms256m -Xmx512m"
+
+
